@@ -18,7 +18,6 @@ import { RestApiService } from '../rest-api.service';
 //exporting the addtess component 
 export class AddressComponent implements OnInit {
   btnDisabled = false;
-  handler: any;
   currentAddress: any;
 
   constructor(private data: DataService, private rest: RestApiService) { }

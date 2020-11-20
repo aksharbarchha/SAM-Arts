@@ -41,7 +41,7 @@
               <h6 class="font-weight-bold text-danger">{{ item.price | currency }}</h6>
             </div>
             <div class="col-1 mt-5 mt-md-0 p-0">
-              <input type="number" class="form-control" min="1" max="99" [(ngModel)]="quantities[i]">
+              <input type="number" class="form-control" min="1" max="99" [(ngModel)]="quantities[i]" readonly>
             </div>
           </div>
           <hr>

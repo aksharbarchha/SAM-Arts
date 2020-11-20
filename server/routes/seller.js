@@ -4,28 +4,28 @@
 const router = require('express').Router();
 const Product = require('../models/product');
 
-const aws = require('aws-sdk');
-const multer = require('multer');
-const multerS3 = require('multer-s3');
-const s3 = new aws.S3({ accessKeyId: "enter accessKeyId", secretAccessKey: "enter secretAccessKey" });
+// const aws = require('aws-sdk');
+// const multer = require('multer');
+// const multerS3 = require('multer-s3');
+// const s3 = new aws.S3({ accessKeyId: "enter accessKeyId", secretAccessKey: "enter secretAccessKey" });
 
 const faker = require('faker');
 
 const checkJWT = require('../middlewares/check-jwt');
 
 //function to upload resources to AWS using multer service 
-var upload = multer({
-  storage: multerS3({
-    s3: s3,
-    bucket: 'ecommercewebapplication',
-    metadata: function (req, file, cb) {
-      cb(null, {fieldName: file.fieldname});
-    },
-    key: function (req, file, cb) {
-      cb(null, Date.now().toString())
-    }
-  })
-});
+// var upload = multer({
+//   storage: multerS3({
+//     s3: s3,
+//     bucket: 'ecommercewebapplication',
+//     metadata: function (req, file, cb) {
+//       cb(null, {fieldName: file.fieldname});
+//     },
+//     key: function (req, file, cb) {
+//       cb(null, Date.now().toString())
+//     }
+//   })
+// });
 
 
 //Function to handle the product's GET and POST requests by seller 
@@ -44,17 +44,30 @@ router.route('/products')
         }
       });
   })
-  .post([checkJWT, upload.single('product_picture')], (req, res, next) => {
-    console.log(upload);
+  .post(checkJWT, (req, res, next) => {
     console.log(req.file);
+    // const allowed_extensions = ['png', 'jpeg', 'jpg'];
+    if('product_picture' in req.file) {
+      let image_name = req.file['product_picture'].name;
+      let image_ext = image_name.split('.', 1)[1].lower();
+      // if (image_ext not in allowed_extensions) {
+      //     flash("Allowed Extensions are: [.png, .jpeg, .jpg]")
+      //     return redirect(url_for('add_produce'))
+      // }
+      image_name = (req.file['product_picture'] + "-" + image_ext);
+      let image_path = "./assets/img/" + image_name;
+      request.file['product_picture'].save(image_path);
+      console.log("File saved");
+    }
     let product = new Product();
     product.owner = req.decoded.user._id;
     product.category = req.body.categoryId;
     product.title = req.body.title;
     product.price = req.body.price;
     product.description = req.body.description;
-    product.image = req.file.location;
+    product.image = image_path;
     product.save();
+    console.log("Product saved");
     res.json({
       success: true,
       message: 'Successfully Added the product'
