@@ -55,7 +55,7 @@ export class CartComponent implements OnInit {
     });
     this.handler = StripeCheckout.configure({
       key: environment.stripeKey,
-      image: 'assets/img/logo.png',
+      image: 'assets/img/sam.png',
       locale: 'auto',
       token: async stripeToken => {
         let products;
@@ -108,7 +108,7 @@ export class CartComponent implements OnInit {
     try {
       if (this.validate()) {
         this.handler.open({
-          name: 'Amazono',
+          name: 'SAM Arts',
           description: 'Checkout Payment',
           amount: this.cartTotal * 100,
           closed: () => {
