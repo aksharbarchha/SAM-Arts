@@ -11,9 +11,9 @@ Art gallery web application using Angular | Node.js | Express.js | MongoDB   (ME
   * Client components developed using Angular 4 - Folder - '/client/Angularecommerce'   
   * Server Restful Api's developed using Node.js, Express.js, MongoDB - Folder - '/server'
 ![](/images/2.png) 
-![](/images/MEAN.PNG) 
+![](/images/MEAN.png) 
 ### Technology stack
-![](/images/0.PNG)
+![](/images/0.png)
 <table>
 <thead>
 <tr>
