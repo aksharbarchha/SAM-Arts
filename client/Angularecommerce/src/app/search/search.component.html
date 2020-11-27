@@ -6,7 +6,7 @@
         <i class="fa fa-spinner fa-spin"></i>
       </h1>
     </div>
-    <h3 *ngIf="content && !content.nbHits" class="display-2 text-center mt-5">No Results</h3>
+    <h3 *ngIf="!content && !content.nbHits" class="display-2 text-center mt-5">No Results</h3>
     <div *ngIf="content && content.nbHits">
       <p>{{ lower }}-{{ upper }} of {{ content.nbHits }} results for
         <span class="text-warning">"{{ query }}"</span>
@@ -38,7 +38,7 @@
         </div>
         <hr>
       </div>
-      <ngb-pagination [collectionSize]="content.nbHits" [pageSize]="20" [(page)]="page" (pageChange)="getProducts()"></ngb-pagination>
+      <ngb-pagination [collectionSize]="content.nbHits" [pageSize]="5" [(page)]="page" (pageChange)="getProducts()"></ngb-pagination>
     </div>
   </div>
 </section>

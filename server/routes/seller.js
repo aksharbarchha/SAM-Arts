@@ -4,28 +4,33 @@
 const router = require('express').Router();
 const Product = require('../models/product');
 
-// const aws = require('aws-sdk');
-// const multer = require('multer');
-// const multerS3 = require('multer-s3');
-// const s3 = new aws.S3({ accessKeyId: "enter accessKeyId", secretAccessKey: "enter secretAccessKey" });
+const multer = require('multer');
 
 const faker = require('faker');
 
 const checkJWT = require('../middlewares/check-jwt');
 
-//function to upload resources to AWS using multer service 
-// var upload = multer({
-//   storage: multerS3({
-//     s3: s3,
-//     bucket: 'ecommercewebapplication',
-//     metadata: function (req, file, cb) {
-//       cb(null, {fieldName: file.fieldname});
-//     },
-//     key: function (req, file, cb) {
-//       cb(null, Date.now().toString())
-//     }
-//   })
-// });
+// File upload settings  
+const PATH = '../server/public/images';
+
+let storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, PATH);
+  },
+  filename: (req, file, cb) => {
+    console.log(file);
+    cb(null, file.fieldname + '-' + Date.now().toString() + ".jpg");
+    // console.log(file.fieldname.toString());
+    // console.log(file.originalname.toString());
+    // console.log(req.file.name.toString());
+    // console.log(file.name.toString());
+  }
+});
+
+let upload = multer({
+  storage: storage
+});
+
 
 
 //Function to handle the product's GET and POST requests by seller 
@@ -44,29 +49,30 @@ router.route('/products')
         }
       });
   })
-  .post(checkJWT, (req, res, next) => {
+  .post([checkJWT, upload.single('product_picture')], (req, res, next) => {
     console.log(req.file);
-    // const allowed_extensions = ['png', 'jpeg', 'jpg'];
-    if('product_picture' in req.file) {
-      let image_name = req.file['product_picture'].name;
-      let image_ext = image_name.split('.', 1)[1].lower();
-      // if (image_ext not in allowed_extensions) {
-      //     flash("Allowed Extensions are: [.png, .jpeg, .jpg]")
-      //     return redirect(url_for('add_produce'))
-      // }
-      image_name = (req.file['product_picture'] + "-" + image_ext);
-      let image_path = "./assets/img/" + image_name;
-      request.file['product_picture'].save(image_path);
-      console.log("File saved");
-    }
+    // // const allowed_extensions = ['png', 'jpeg', 'jpg'];
+    // if('product_picture' in req.file) {
+    //   let image_name = req.file['product_picture'].name;
+    //   let image_ext = image_name.split('.', 1)[1].lower();
+    //   // if (image_ext not in allowed_extensions) {
+    //   //     flash("Allowed Extensions are: [.png, .jpeg, .jpg]")
+    //   //     return redirect(url_for('add_produce'))
+    //   // }
+    //   image_name = (req.file['product_picture'] + "-" + image_ext);
+    //   let image_path = "./assets/img/" + image_name;
+    //   request.file['product_picture'].save(image_path);
+    //   console.log("File saved");
+    // }
     let product = new Product();
     product.owner = req.decoded.user._id;
     product.category = req.body.categoryId;
+    product.image = "http://localhost:3030/images/"+req.file.filename;
     product.title = req.body.title;
     product.price = req.body.price;
     product.description = req.body.description;
-    product.image = image_path;
     product.save();
+    console.log(req.file.path);
     console.log("Product saved");
     res.json({
       success: true,

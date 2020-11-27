@@ -25,6 +25,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(morgan('dev'));
 app.use(cors());
+app.use(express.static('public'));
 
 const userRoutes = require('./routes/account');
 const mainRoutes = require('./routes/main');

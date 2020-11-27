@@ -17,7 +17,7 @@ const ProductSchema = new Schema({
   title: String,
   description: String,
   price: Number,
-  crated: { type: Date, default: Date.now }
+  created: { type: Date, default: Date.now }
 }, {
   toObject: { virtuals: true },
   toJSON: { virtuals: true }

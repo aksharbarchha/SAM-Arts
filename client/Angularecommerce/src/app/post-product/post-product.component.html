@@ -36,6 +36,10 @@
             <input type="file" class="form-control-file" accept="image/*" name="file" (change)="fileChange($event)">
           </div>
           <button type="button" class="btn btn-success" (click)="post()" [disabled]="btnDisabled">Post</button>
+          <!-- <input type="file" name="image" class="form-control-file" ng2FileSelect [uploader]="uploader" accept="image/x-png,image/gif,image/jpeg,image/jpg" />
+          <button type="button" class="btn btn-success" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+            Upload
+          </button> -->
         </form>
       </div>
     </div>

@@ -3,9 +3,12 @@
 //Including the required packages and assigning it to Local Variables
 const router = require('express').Router();
 
+const Product = require('../models/product');
+
 const algoliasearch = require('algoliasearch');
 const client = algoliasearch('0FOEJ0HBMM', '3de82e9037ed2726d3a11d8b48a27b49');
 const index = client.initIndex('Ecommercever1');
+
 
 
 //Function providing product search functionality 

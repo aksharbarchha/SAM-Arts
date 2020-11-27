@@ -4,8 +4,13 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
+// import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
+
 import { RestApiService } from '../rest-api.service';
 import { DataService } from '../data.service';
+
+// const URL = 'http://localhost:3030/api/seller/products';
+
 
 //component specific details
 @Component({
@@ -28,6 +33,12 @@ export class PostProductComponent implements OnInit {
   categories: any;
   btnDisabled = false;
 
+
+  // public uploader: FileUploader = new FileUploader({
+  //   url: URL,
+  //   itemAlias: 'image'
+  // });
+
   constructor(
     private data: DataService,
     private rest: RestApiService,
@@ -45,6 +56,13 @@ export class PostProductComponent implements OnInit {
     } catch (error) {
       this.data.error(error['message']);
     }
+    // this.uploader.onAfterAddingFile = (file) => {
+    //   file.withCredentials = false;
+    // };
+    // this.uploader.onCompleteItem = (item: any, status: any) => {
+    //   console.log('Uploaded File Details:', item);
+    //   // this.toastr.success('File successfully uploaded!');
+    // };
   }
 
   validate(product) {

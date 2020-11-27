@@ -21,6 +21,8 @@ export class SearchComponent implements OnInit {
 
   content: any;
 
+  nbhits = 1;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private data: DataService,
