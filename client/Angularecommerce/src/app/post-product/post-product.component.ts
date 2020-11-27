@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 import { RestApiService } from '../rest-api.service';
 import { DataService } from '../data.service';
 
-// const URL = 'http://localhost:3030/api/seller/products';
+// const URL = 'api/seller/products';
 
 
 //component specific details
@@ -48,7 +48,7 @@ export class PostProductComponent implements OnInit {
   async ngOnInit() {
     try {
       const data = await this.rest.get(
-        'http://localhost:3030/api/categories'
+        'api/categories'
       );
       data['success']
         ? (this.categories = data['categories'])
@@ -112,7 +112,7 @@ export class PostProductComponent implements OnInit {
           }
         }
         const data = await this.rest.post(
-          'http://localhost:3030/api/seller/products',
+          'api/seller/products',
           form
         );
         data['success']

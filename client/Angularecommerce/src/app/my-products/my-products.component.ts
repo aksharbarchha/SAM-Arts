@@ -23,7 +23,7 @@ export class MyProductsComponent implements OnInit {
   async ngOnInit() {
     try {
       const data = await this.rest.get(
-        'http://localhost:3030/api/seller/products'
+        'api/seller/products'
       );
       data['success']
         ? (this.products = data['products'])

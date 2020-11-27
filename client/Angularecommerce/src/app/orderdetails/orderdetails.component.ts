@@ -43,7 +43,7 @@ async getProducts(event?: any) {
     }
     try {
       const data = await this.rest.get(
-        `http://localhost:3030/api/accounts/orders/${this.orderId}`);
+        `api/accounts/orders/${this.orderId}`);
       data['success']
             ? (this.products = data['order'])
             : this.data.error(data['message']);

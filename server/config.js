@@ -2,8 +2,8 @@
 
 module.exports = {
   database:
-    'mongodb://localhost/art_auction',
-  port: 3030,
+    'mongodb://cluster0.lalr4.mongodb.net:27017/art_auction',
+  port: process.env.PORT || 3030,
   secret: 'RamtF3BAC8E761687B25F61D95100537A6FB1254E3DAB50A078C68BF575E8B13054CejaRepaka2012312321'
 };
 

@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
 
   async ngOnInit() {
     try {
-      const data = await this.rest.get('http://localhost:3030/api/products');
+      const data = await this.rest.get('api/products');
       data['success']
         ? (this.products = data['products'])
         : this.data.error('Could not fetch products.');

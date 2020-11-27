@@ -49,7 +49,7 @@ export class CategoryComponent implements OnInit {
     }
     try {
       const data = await this.rest.get(
-        `http://localhost:3030/api/categories/${this.categoryId}?page=${this
+        `api/categories/${this.categoryId}?page=${this
           .page - 1}`,
       );
       data['success']
